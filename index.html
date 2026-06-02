@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Precision Auto — 30 Years. One Standard. Done Right.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0d0d0d;
+    --dark: #141414;
+    --card: #1a1a1a;
+    --gold: #f5a623;
+    --gold-light: #ffc14d;
+    --white: #ffffff;
+    --gray: #999;
+    --light-gray: #c8c8c8;
+    --border: #2a2a2a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo svg { width: 36px; height: 36px; }
+  .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: var(--light-gray); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-phone { color: var(--gold); font-weight: 700; font-size: 15px; }
+  .btn-book {
+    background: var(--gold); color: var(--black); font-weight: 700; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 1px; padding: 10px 20px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background .2s;
+  }
+  .btn-book:hover { background: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    padding: 90px 80px 80px;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
+    max-width: 1200px; margin: 0 auto;
+  }
+  .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 110px);
+    line-height: .95;
+    letter-spacing: 2px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .hero h1 span { color: var(--gold); display: block; }
+  .hero-sub { color: var(--light-gray); font-size: 16px; max-width: 460px; margin: 24px 0 36px; line-height: 1.7; }
+  .hero-ctas { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--gold); color: var(--black); font-weight: 700;
+    font-size: 14px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 14px 28px; border: none; cursor: pointer;
+    text-decoration: none; display: inline-block; transition: background .2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-outline {
+    background: transparent; color: var(--white); border: 1.5px solid #444;
+    font-weight: 700; font-size: 14px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 14px 28px; cursor: pointer; text-decoration: none; display: inline-block;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* BADGES */
+  .badges {
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 80px;
+  }
+  .badges-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 48px; flex-wrap: wrap; }
+  .badge { display: flex; align-items: center; gap: 12px; }
+  .badge-icon { color: var(--gold); font-size: 22px; }
+  .badge-text strong { display: block; font-size: 14px; font-weight: 700; color: var(--white); }
+  .badge-text span { font-size: 12px; color: var(--gray); }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold);
+    text-align: center; margin-bottom: 16px;
+  }
+
+  /* WHAT WE DO */
+  .what-we-do { padding: 80px 80px; max-width: 1200px; margin: 0 auto; }
+  .what-we-do h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    letter-spacing: 2px; text-align: center; line-height: 1;
+    margin-bottom: 12px;
+  }
+  .what-we-do .sub { text-align: center; color: var(--gray); font-size: 15px; max-width: 500px; margin: 0 auto 56px; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px; background: var(--border);
+  }
+  .service-card {
+    background: var(--card); padding: 36px 32px;
+    transition: background .2s;
+  }
+  .service-card:hover { background: #202020; }
+  .service-card .icon { color: var(--gold); font-size: 28px; margin-bottom: 16px; }
+  .service-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
+  .service-card p { color: var(--gray); font-size: 14px; line-height: 1.65; }
+
+  /* WHY CHOOSE US */
+  .why { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 80px; }
+  .why-inner { max-width: 1200px; margin: 0 auto; }
+  .why h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    letter-spacing: 2px; text-align: center; line-height: 1;
+    margin-bottom: 56px;
+  }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
+  .why-item { text-align: center; }
+  .why-item .why-icon { font-size: 36px; color: var(--gold); margin-bottom: 20px; }
+  .why-item p { color: var(--light-gray); font-size: 15px; line-height: 1.7; font-style: italic; }
+  .why-item .why-tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-top: 16px; }
+
+  /* REVIEWS */
+  .reviews { padding: 80px; max-width: 1200px; margin: 0 auto; }
+  .reviews h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 4vw, 58px);
+    letter-spacing: 2px; text-align: center; line-height: 1;
+    margin-bottom: 8px;
+  }
+  .reviews .sub { text-align: center; color: var(--gray); font-size: 14px; margin-bottom: 52px; letter-spacing: 1px; text-transform: uppercase; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; background: var(--border); }
+  .review-card { background: var(--card); padding: 32px; }
+  .stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; margin-bottom: 16px; }
+  .review-card p { color: var(--light-gray); font-size: 14px; line-height: 1.7; margin-bottom: 20px; }
+  .reviewer strong { font-size: 14px; font-weight: 700; display: block; }
+  .reviewer span { font-size: 12px; color: var(--gray); }
+
+  /* STORE */
+  .store {
+    background: var(--dark); border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border); padding: 80px;
+    text-align: center;
+  }
+  .store-inner { max-width: 700px; margin: 0 auto; }
+  .store h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px); letter-spacing: 2px; margin-bottom: 16px;
+  }
+  .store p { color: var(--gray); font-size: 16px; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .store-products {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;
+  }
+  .store-product {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 24px 20px; width: 180px; text-align: center;
+    transition: border-color .2s, transform .2s;
+    text-decoration: none; color: var(--white);
+  }
+  .store-product:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .store-product .prod-icon { font-size: 32px; margin-bottom: 12px; }
+  .store-product .prod-name { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+  .store-product .prod-price { font-size: 15px; color: var(--gold); font-weight: 700; }
+  .btn-store {
+    background: transparent; color: var(--gold);
+    border: 2px solid var(--gold); font-weight: 700;
+    font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 16px 40px; text-decoration: none; display: inline-block;
+    transition: background .2s, color .2s;
+  }
+  .btn-store:hover { background: var(--gold); color: var(--black); }
+
+  /* CTA */
+  .cta-section {
+    padding: 80px;
+  }
+  .cta-inner {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+  .cta-left h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(38px, 4vw, 56px); letter-spacing: 2px; line-height: 1; margin-bottom: 24px;
+  }
+  .cta-left p { color: var(--gray); font-size: 15px; margin-bottom: 32px; line-height: 1.7; }
+  .cta-points { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .cta-points li { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--light-gray); }
+  .cta-points li::before { content: '✓'; color: var(--gold); font-weight: 700; }
+  .cta-right h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%; background: #1e1e1e; border: 1px solid var(--border);
+    color: var(--white); padding: 14px 16px; font-family: 'Barlow', sans-serif;
+    font-size: 14px; outline: none; transition: border-color .2s;
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group textarea { height: 100px; resize: vertical; }
+  .form-group select option { background: #1e1e1e; }
+  .btn-send {
+    width: 100%; background: var(--gold); color: var(--black);
+    font-weight: 700; font-size: 15px; letter-spacing: 1px; text-transform: uppercase;
+    padding: 16px; border: none; cursor: pointer; transition: background .2s; margin-top: 8px;
+  }
+  .btn-send:hover { background: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: #0a0a0a; border-top: 1px solid var(--border);
+    padding: 60px 80px 32px;
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 48px; margin-bottom: 48px; }
+  .footer-brand .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--gold); margin-bottom: 12px; }
+  .footer-brand p { color: var(--gray); font-size: 13px; line-height: 1.7; max-width: 260px; }
+  .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul a { color: var(--gray); text-decoration: none; font-size: 13px; transition: color .2s; }
+  .footer-col ul a:hover { color: var(--white); }
+  .footer-col address { font-style: normal; color: var(--gray); font-size: 13px; line-height: 1.8; }
+  .footer-col address a { color: var(--gray); text-decoration: none; transition: color .2s; }
+  .footer-col address a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-bottom p { color: #555; font-size: 12px; }
+  .footer-bottom a { color: #555; text-decoration: none; font-size: 12px; }
+  .footer-bottom a:hover { color: var(--gold); }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero { padding: 60px 24px; }
+    .badges { padding: 24px; }
+    .what-we-do, .why, .reviews, .store, .cta-section, footer { padding: 60px 24px; }
+    .why-grid { grid-template-columns: 1fr; gap: 32px; }
+    .cta-inner { grid-template-columns: 1fr; gap: 40px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="images/logo2.png" alt="Precision Auto" style="height: 60px; width: auto;">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Pre-Purchase</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Testimonials</a></li>
+    <li><a href="#store">Store</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="nav-phone">(847) 262-3335</span>
+    <a href="#contact" class="btn-book">Book Your Appointment</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section style="background: var(--black);">
+  <div class="hero">
+    <p class="hero-tag">&#x2605; Family Owned &amp; Operated</p>
+    <h1>30 Years.<br>One Standard.<br><span>Done Right.</span></h1>
+    <p class="hero-sub">Trusted by families and fleets across the area for over three decades — because honesty still matters.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Book Your Service</a>
+      <a href="tel:5553214567" class="btn-outline">&#9742; Call Us Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- BADGES -->
+<div class="badges">
+  <div class="badges-inner">
+    <div class="badge">
+      <span class="badge-icon">🏆</span>
+      <div class="badge-text"><strong>30+ Years Experience</strong><span>In the business</span></div>
+    </div>
+    <div class="badge">
+      <span class="badge-icon">👨‍👩‍👧</span>
+      <div class="badge-text"><strong>Family Owned &amp; Operated</strong><span>Since day one</span></div>
+    </div>
+    <div class="badge">
+      <span class="badge-icon">🔧</span>
+      <div class="badge-text"><strong>Factory-Spec Repairs</strong><span>No shortcuts</span></div>
+    </div>
+    <div class="badge">
+      <span class="badge-icon">🤝</span>
+      <div class="badge-text"><strong>Honest &amp; Transparent</strong><span>Tell it like it is</span></div>
+    </div>
+    <div class="badge">
+      <span class="badge-icon">⚡</span>
+      <div class="badge-text"><strong>Electrical Specialists</strong><span>Diagnostic experts</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT WE DO -->
+<section style="background: var(--black);">
+  <div class="what-we-do">
+    <p class="section-label">What We Do</p>
+    <h2>Precision Diagnostics.<br>Factory-Spec Repairs.</h2>
+    <p class="sub">From check engine lights to full transmission work — we fix it right the first time.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">🔍</div>
+        <h3>Engine Diagnostics &amp; Repair</h3>
+        <p>Advanced computer diagnostics or pinpoint exactly what's wrong — no guessing, no unnecessary work.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">⚡</div>
+        <h3>Electrical &amp; Wiring</h3>
+        <p>Specialty: electrical problems, wiring, harness issues, module programming — we trace it, fix it.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🔔</div>
+        <h3>Airbag &amp; Check Engine Light</h3>
+        <p>SRS and MIL diagnostics done to the component level. Don't ignore warning lights — we get to the root cause.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">⚙️</div>
+        <h3>Transmission Service</h3>
+        <p>Complete transmission diagnostics, repair, and service. From fluid changes to full rebuilds.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🚗</div>
+        <h3>Pre-Purchase Inspections</h3>
+        <p>Buying a used car? Let Bob inspect it first — that can make a big difference in how well you're getting into the deal.</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🛠️</div>
+        <h3>General Maintenance &amp; Repairs</h3>
+        <p>Oil changes, brakes, tires, suspension, and everything in between. Factory-spec work, every time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<div class="why">
+  <div class="why-inner">
+    <p class="section-label">Why Choose Us</p>
+    <h2>What Our Customers<br>Keep Telling Us</h2>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-icon">💬</div>
+        <p>"They gave us the news straight and never tried to upset on parts or services we didn't need."</p>
+        <div class="why-tag">We Tell You The Truth</div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">🎯</div>
+        <p>"They pay attention to details most shops don't know — but that can make a big difference in how well your car runs."</p>
+        <div class="why-tag">Details That Make The Difference</div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon">⭐</div>
+        <p>"Bob came to the dealership on his own time to inspect a car I was thinking of buying. He explained everything I learned more than I knew before."</p>
+        <div class="why-tag">We Go The Extra Mile</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<section style="background: var(--black);">
+  <div class="reviews">
+    <p class="section-label">Real Reviews</p>
+    <h2>Trusted by Families<br>for Over Two Decades</h2>
+    <p class="sub">&#9733;&#9733;&#9733;&#9733;&#9733; Rated 5 stars by hundreds of customers</p>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Bob and the whole team are top notch. Been taking our cars for over 35 years. Trustworthy, honest, fair prices!"</p>
+        <div class="reviewer"><strong>— George S.</strong><span>Long-time customer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Richie, Dennis and Derek the son are both great mechanics and great people. Family for over 38 years experience and it shows."</p>
+        <div class="reviewer"><strong>— Craig P.</strong><span>Long-time customer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"They treat our family and genuinely want to help. Very knowledgeable and affordable."</p>
+        <div class="reviewer"><strong>— Christina A.</strong><span>Family customer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"I have a family that owns five vehicles — all run fantastic thanks to Automotive Corrections."</p>
+        <div class="reviewer"><strong>— Lee C.</strong><span>A vehicle family</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"The Cadillac dealership said my car couldn't be repaired. Bob fixed it."</p>
+        <div class="reviewer"><strong>— Richard R.</strong><span>Satisfied customer</span></div>
+      </div>
+      <div class="review-card">
+        <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"Honest pricing, fast turnaround, and they actually explain what's wrong. Found my shop for life."</p>
+        <div class="reviewer"><strong>— Maria T.</strong><span>New customer</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / CTA -->
+<section id="contact">
+<div class="cta-section">
+<div class="cta-inner">
+  <div class="cta-left">
+    <h2>Ready to Work With Mechanics You Can Actually Trust?</h2>
+    <p>Tell us what you need. We'll get back to you within 24 hours — usually sooner — with an honest assessment. No obligation, no pressure.</p>
+    <ul class="cta-points">
+      <li>Response within 24 hours</li>
+      <li>No obligation estimates</li>
+      <li>Honest assessment — no upsells</li>
+    </ul>
+  </div>
+  <div class="cta-right">
+    <h3>Request a Quote</h3>
+    <form action="https://formspree.io/f/xlgvygrg" method="POST">
+      <div class="form-group"><input type="text" name="name" placeholder="Full Name"></div>
+      <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number"></div>
+      <div class="form-group"><input type="email" name="email" placeholder="Email"></div>
+      <div class="form-group">
+        <select name="service">
+          <option value="" disabled selected>Service Needed</option>
+          <option>Engine Diagnostics</option>
+          <option>Electrical &amp; Wiring</option>
+          <option>Transmission Service</option>
+          <option>Pre-Purchase Inspection</option>
+          <option>General Maintenance</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><textarea name="message" placeholder="Tell us about your vehicle or concern…"></textarea></div>
+      <button type="submit" class="btn-send">Send Message</button>
+    </form>
+  </div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">Precision Auto</div>
+        <p>Family-owned and operated for over 30 years. We treat every car like it belongs to someone we know — because it usually does.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Pre-Purchase Inspections</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Testimonials</a></li>
+          <li><a href="#store">Store</a></li>
+          <li><a href="#contact">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Our Services</h4>
+        <ul>
+          <li><a href="#">Engine Diagnostics</a></li>
+          <li><a href="#">Electrical &amp; Wiring</a></li>
+          <li><a href="#">Airbag &amp; Check Engine</a></li>
+          <li><a href="#">Transmission Service</a></li>
+          <li><a href="#">Pre-Purchase Inspect.</a></li>
+          <li><a href="#">General Maintenance</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Get In Touch</h4>
+        <address>
+          123 Main Street<br>
+          Anytown, ST 00000<br><br>
+          <a href="tel:5553214567">(555) 321-4567</a><br>
+          <a href="mailto:info@precisionauto.com">info@precisionauto.com</a><br><br>
+          Mon–Fri: 8am – 6pm<br>
+          Sat: 8am – 2pm
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Precision Auto. All rights reserved.</p>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
