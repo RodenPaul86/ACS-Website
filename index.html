@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --black: #0d0d0d;
+    --black: #111;
     --dark: #141414;
     --card: #1a1a1a;
     --gold: #f5a623;
@@ -48,7 +48,6 @@
   /* HERO */
   .hero {
     padding: 90px 80px 80px;
-    background: var(--black);
     border-bottom: 1px solid var(--border);
     max-width: 1200px; margin: 0 auto;
   }
@@ -85,11 +84,36 @@
     border-bottom: 1px solid var(--border);
     padding: 28px 80px;
   }
-  .badges-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 48px; flex-wrap: wrap; }
-  .badge { display: flex; align-items: center; gap: 12px; }
-  .badge-icon { color: var(--gold); font-size: 22px; }
-  .badge-text strong { display: block; font-size: 14px; font-weight: 700; color: var(--white); }
-  .badge-text span { font-size: 12px; color: var(--gray); }
+  .badges-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+  }
+  .badge-icon {
+    color: var(--gold);
+    font-size: 28px;
+  }
+  .badge-text strong {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .badge-text span {
+    font-size: 12px;
+    color: var(--gray);
+  }
 
   /* SECTION LABEL */
   .section-label {
@@ -272,15 +296,32 @@
   </div>
 </nav>
 
+<div style="display: flex; flex-direction: column; gap: 80px;">
+
 <!-- HERO -->
-<section style="background: var(--black);">
-  <div class="hero">
+<section style="
+  background-image: url('images/other/BGImage.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+">
+  <!-- Dark overlay -->
+  <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6);"></div>
+
+  <div class="hero" style="position: relative; z-index: 1;">
     <p class="hero-tag">&#x2605; Family Owned &amp; Operated</p>
     <h1>23 Years.<br>One Standard.<br><span>Done Right.</span></h1>
     <p class="hero-sub">Trusted by families and fleets across the area for over two decades — because honesty still matters.</p>
     <div class="hero-ctas">
       <a href="#contact" class="btn-primary">Book Your Service</a>
       <a href="tel:5553214567" class="btn-outline">&#9742; Call Us Now</a>
+    </div>
+    
+    <!-- Star bar -->
+    <div style="display: flex; align-items: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
+      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> 20+ Years Experience</span>
+      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> Family Owned &amp; Operated</span>
+      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> Honest, Fair Pricing</span>
     </div>
   </div>
 </section>
@@ -394,7 +435,7 @@
   <div class="reviews">
     <p class="section-label">Real Reviews</p>
     <h2>Trusted by Families<br>for Over Two Decades</h2>
-    <p class="sub">&#9733;&#9733;&#9733;&#9733;&#9733; Rated 5 stars by hundreds of customers</p>
+    <p class="sub">Rated 5 stars by hundreds of customers</p>
     <div class="reviews-grid">
       <div class="review-card">
         <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
@@ -427,6 +468,49 @@
         <div class="reviewer"><strong>— Maria T.</strong><span>New customer</span></div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- WHO WE ARE SECTION -->
+<section id="who-we-are" style="background: var(--black); display:flex; align-items:stretch; min-height:480px; overflow:hidden;">
+
+  <!-- Left: Image -->
+  <div style="width:45%; flex-shrink:0; overflow:hidden;">
+    <img src="images/7962315_orig.jpg" alt="Engine with diagnostic laptop"
+         style="width:100%; height:100%; object-fit:cover; display:block;">
+  </div>
+
+  <!-- Right: Content -->
+  <div style="flex:1; padding:3rem 2.5rem; display:flex; flex-direction:column; justify-content:center; gap:1.25rem;">
+    
+    <p style="font-family:Arial,sans-serif; font-size:12px; font-weight:700; letter-spacing:0.15em; color:#c8933a; text-transform:uppercase; margin:0;">
+      Who We Are
+    </p>
+    
+    <h2 style="font-family:Georgia,serif; font-size:2.2rem; font-weight:800; color:#fff; line-height:1.1; margin:0;">
+      Not a Franchise.<br>
+      <span style="color:#888;">Just Family.</span>
+    </h2>
+    
+    <p style="font-family:Arial,sans-serif; font-size:15px; line-height:1.7; color:#aaa; margin:0;">
+      Automotive Connections Services isn't a franchise. It's Bob, Devin, and a team that cares about your car the way you do. Almost three decades of real-world experience means we've seen it all — and fixed most of it.
+    </p>
+    
+    <p style="font-family:Arial,sans-serif; font-size:15px; line-height:1.7; color:#aaa; margin:0;">
+      We work to factory specs because your car deserves nothing less. No shortcuts, no guesswork, no unnecessary upsells. Just honest diagnostics and expert repairs from people who treat every vehicle like it belongs to their own family.
+    </p>
+    
+    <!--
+    <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; margin-top:0.5rem;">
+      <a href="about.html" style="background:transparent; border:1px solid #555; color:#fff; padding:0.7rem 1.4rem; font-size:14px; font-weight:600; border-radius:6px; text-decoration:none; font-family:Arial,sans-serif;">
+        Read Our Full Story →
+      </a>
+      <a href="tel:5551234567" style="color:#aaa; font-size:14px; text-decoration:none; font-family:Arial,sans-serif;">
+        📞 Or just call us directly
+      </a>
+    </div>-->
+
+
   </div>
 </section>
 
@@ -467,6 +551,7 @@
 </div>
 </div>
 </section>
+</div>
 
 <!-- FOOTER -->
 <footer>
