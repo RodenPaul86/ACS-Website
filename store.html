@@ -917,18 +917,16 @@
 <!-- NAV -->
 <nav>
   <a class="nav-logo" href="#">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1.5H8V13zm0 3h5v1.5H8V16zm0-6h3v1.5H8V10z"/></svg>
-    AUTO<span>CONNECT</span>
+    <!-- <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 13h8v1.5H8V13zm0 3h5v1.5H8V16zm0-6h3v1.5H8V10z"/></svg> -->
+    OEM AUTO<span>CONNECTORS</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#shop">Connectors</a></li>
-    <li><a href="#shop">Wiring Kits</a></li>
-    <li><a href="#shop">Tools</a></li>
-    <li><a href="#">Brands</a></li>
-    <li><a href="#">Support</a></li>
+    <li><a href="#">Request a Connector</a></li>
+    
+    <li><a href="#">Coupons</a></li>
   </ul>
   <div class="nav-right">
-    <input class="nav-search" type="text" id="navSearch" placeholder="Search connectors…" />
+    <input class="nav-search" type="text" id="navSearch" placeholder="Search connectors…"/>
     <button class="cart-btn" id="cartBtn" aria-label="View cart">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4H6zm0 10a6 6 0 0 0 12 0"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       Cart
@@ -1176,12 +1174,13 @@
   </div>
 </footer>
 
+<!-- Products Data -->
 <script>
 const PRODUCTS = [
-  { id:1,  name:'2-Pin Weatherpack Connector',        cat:'weatherpack', catLabel:'Weatherpack',      price:4.99,  rating:4.8, reviews:312, badge:'hot',  desc:'IP67 sealed, 12–16 AWG. Direct OEM replacement for GM applications.' },
+  { id:1,  name:'2-Pin Weatherpack Connector',        cat:'weatherpack', catLabel:'Weatherpack',      price:4.99,  rating:4.8, reviews:312, badge:null,  desc:'IP67 sealed, 12–16 AWG. Direct OEM replacement for GM applications.' },
   { id:2,  name:'4-Pin Weatherpack Kit (10 pack)',    cat:'weatherpack', catLabel:'Weatherpack',      price:18.99, oldPrice:24.99, rating:4.9, reviews:187, badge:'sale', desc:'Includes terminals, seals, and TPA. Heat-resistant nylon housing.' },
   { id:3,  name:'6-Pin Weatherpack Connector',        cat:'weatherpack', catLabel:'Weatherpack',      price:7.99,  rating:4.7, reviews:94,  badge:null,  desc:'High-temp rated to 125°C. Gold-plated female terminals.' },
-  { id:4,  name:'Deutsch DT 2-Pin Connector',         cat:'deutsch',     catLabel:'Deutsch DT',       price:9.49,  rating:4.9, reviews:256, badge:'hot',  desc:'Vibration-resistant latch. Rated 13A per pin. IP67 rated.' },
+  { id:4,  name:'Deutsch DT 2-Pin Connector',         cat:'deutsch',     catLabel:'Deutsch DT',       price:9.49,  rating:4.9, reviews:256, badge:null,  desc:'Vibration-resistant latch. Rated 13A per pin. IP67 rated.' },
   { id:5,  name:'Deutsch DT 4-Pin Kit',               cat:'deutsch',     catLabel:'Deutsch DT',       price:14.99, rating:4.8, reviews:143, badge:null,  desc:'With wedge lock and solid contacts. 16–20 AWG compatible.' },
   { id:6,  name:'Deutsch DT 8-Pin Connector',         cat:'deutsch',     catLabel:'Deutsch DT',       price:19.99, rating:4.7, reviews:78,  badge:'new',  desc:'Double-row configuration. IP67. 8 × 13A circuits. Keyed.' },
   { id:7,  name:'OBD-II Male Connector (16-pin)',     cat:'obd',         catLabel:'OBD / Diagnostic', price:6.99,  rating:4.6, reviews:409, badge:null,  desc:'Pigtail leads, 12" fly leads. J1962 compliant. All pins.' },
@@ -1189,7 +1188,7 @@ const PRODUCTS = [
   { id:9,  name:'4-Gauge Power Lug Terminals (10pk)',cat:'power',       catLabel:'Power & Ground',    price:11.99, rating:4.8, reviews:162, badge:null,  desc:'Tinned copper, crimp or solder. Ring terminal style.' },
   { id:10, name:'ANL Fuse Holder + 200A Fuse',       cat:'power',       catLabel:'Power & Ground',    price:16.99, oldPrice:21.99, rating:4.9, reviews:334, badge:'sale', desc:'High current distribution. Gold-plated contacts. In-line.' },
   { id:11, name:'Ground Distribution Block 4→8',     cat:'power',       catLabel:'Power & Ground',    price:22.49, rating:4.8, reviews:97,  badge:null,  desc:'1×4AWG in, 8×8AWG out. Anodized aluminum body.' },
-  { id:12, name:'ISO DIN Radio Harness Adapter',     cat:'audio',       catLabel:'Audio / AV',        price:8.99,  rating:4.6, reviews:521, badge:'hot',  desc:'Universal fit. Retains stock steering wheel controls.' },
+  { id:12, name:'ISO DIN Radio Harness Adapter',     cat:'audio',       catLabel:'Audio / AV',        price:8.99,  rating:4.6, reviews:521, badge:null,  desc:'Universal fit. Retains stock steering wheel controls.' },
   { id:13, name:'RCA Phono Connector Pair',           cat:'audio',       catLabel:'Audio / AV',        price:3.49,  rating:4.5, reviews:288, badge:null,  desc:'Gold-plated, color-coded L/R. Screw-lock strain relief.' },
   { id:14, name:'Oxygen Sensor Connector 4-Wire',    cat:'sensor',      catLabel:'Sensors',            price:5.99,  rating:4.7, reviews:175, badge:'new',  desc:'Fits Bosch, Denso O2 sensors. Heat-shrink tubing included.' },
   { id:15, name:'MAP Sensor 3-Pin Connector',         cat:'sensor',      catLabel:'Sensors',            price:4.49,  rating:4.8, reviews:207, badge:null,  desc:'Replaces worn sockets. Pre-wired 6" pigtail leads.' },
