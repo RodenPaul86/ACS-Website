@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>America 250</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#04071A; font-family: -apple-system, 'SF Pro Display', sans-serif; overflow-x:hidden; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; }
+  .nav-logo svg { width: 36px; height: 36px; }
+  .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--gold); }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { color: var(--light-gray); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+
+  /* HERO */
+  .hero { position:relative; height:520px; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:40px; overflow:hidden; }
+  canvas#fireworks { position:absolute; inset:0; width:100%; height:100%; }
+
+  .hero-content { position:relative; z-index:10; text-align:center; }
+  .anniversary-badge { display:inline-block; background:rgba(200,16,46,0.85); color:#FFD700; font-size:11px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:5px 14px; border-radius:20px; margin-bottom:14px; border:1px solid rgba(255,215,0,0.4); }
+  .hero-number { font-size:96px; font-weight:800; color:#fff; line-height:1; letter-spacing:-4px; text-shadow:0 0 60px rgba(255,215,0,0.5); font-variant-numeric:lining-nums; }
+  .hero-number span { color:#FFD700; }
+  .hero-subtitle { font-size:16px; color:rgba(255,255,255,0.8); letter-spacing:5px; text-transform:uppercase; margin-top:6px; font-weight:400; }
+  .hero-date { font-size:13px; color:rgba(255,215,0,0.7); margin-top:10px; letter-spacing:2px; }
+
+  /* Stars decoration */
+  .star-row { position:relative; z-index:10; display:flex; gap:8px; justify-content:center; margin-top:16px; }
+  .star { color:#FFD700; font-size:16px; }
+
+  /* COUNTDOWN */
+  .section { padding:0 20px; }
+  .countdown-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:20px; margin:20px 0; backdrop-filter:blur(10px); }
+  .countdown-label { font-size:11px; color:rgba(255,215,0,0.8); letter-spacing:3px; text-transform:uppercase; text-align:center; margin-bottom:14px; }
+  .countdown-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .count-unit { text-align:center; background:rgba(10,14,42,0.8); border-radius:14px; padding:12px 4px; border:1px solid rgba(200,16,46,0.3); }
+  .count-num { font-size:30px; font-weight:700; color:#fff; line-height:1; display:block; }
+  .count-label { font-size:10px; color:rgba(255,255,255,0.5); letter-spacing:1.5px; text-transform:uppercase; margin-top:4px; }
+
+  /* MILESTONES */
+  .section-title { font-size:13px; color:rgba(255,215,0,0.8); letter-spacing:3px; text-transform:uppercase; margin:24px 0 14px; }
+  .milestone-scroll { display:flex; gap:14px; overflow-x:auto; padding:4px 0 16px; -webkit-overflow-scrolling:touch; }
+  .milestone-scroll::-webkit-scrollbar { display:none; }
+  .milestone-card { flex:0 0 170px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:18px; padding:18px 14px; cursor:pointer; transition:all 0.2s; position:relative; overflow:hidden; }
+  .milestone-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+  .milestone-card.red::before { background:#C8102E; }
+  .milestone-card.gold::before { background:#FFD700; }
+  .milestone-card.blue::before { background:#3C3B6E; }
+  .milestone-card:active { transform:scale(0.97); background:rgba(255,255,255,0.08); }
+  .milestone-year { font-size:22px; font-weight:700; color:#FFD700; }
+  .milestone-title { font-size:13px; font-weight:600; color:#fff; margin-top:4px; line-height:1.3; }
+  .milestone-desc { font-size:11px; color:rgba(255,255,255,0.5); margin-top:6px; line-height:1.4; }
+
+  /* PLEDGE */
+  .pledge-card { background:linear-gradient(135deg, rgba(60,59,110,0.6), rgba(10,14,42,0.9)); border:1px solid rgba(255,215,0,0.2); border-radius:20px; padding:24px 20px; margin:6px 0 20px; text-align:center; }
+  .pledge-quote { font-size:18px; font-weight:700; color:#fff; line-height:1.4; }
+  .pledge-quote em { color:#FFD700; font-style:normal; }
+  .pledge-source { font-size:11px; color:rgba(255,255,255,0.4); margin-top:10px; letter-spacing:1px; }
+
+  /* FLAGS */
+  .flag-strip { display:flex; height:8px; border-radius:4px; overflow:hidden; margin:20px 0; }
+  .flag-red { flex:1; background:#C8102E; }
+  .flag-white { flex:1; background:#fff; }
+  .flag-blue { flex:1; background:#3C3B6E; }
+
+  /* FIREWORK BUTTON */
+  .firework-btn { display:block; background:#C8102E; color:#FFD700; font-size:15px; font-weight:700; text-align:center; padding:16px; border-radius:16px; border:none; cursor:pointer; letter-spacing:1px; width:100%; margin:8px 0 30px; transition:all 0.15s; }
+  .firework-btn:active { transform:scale(0.97); background:#a00d26; }
+
+  /* STRIPES */
+  .bottom-stripes { height:12px; background:repeating-linear-gradient(90deg, #C8102E 0, #C8102E 14%, #fff 14%, #fff 28%); border-radius:6px; margin:0 20px 30px; }
+
+  /* Bottom safe area */
+  .safe-bottom { height:34px; }
+</style>
+</head>
+<body>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">America 250 — July 4th celebration</h2>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <a href="#">
+      <img src="assets/logo.png" alt="Precision Auto" style="height: 60px; width: auto;">
+    </a>
+  </div>
+</nav>
+
+<div class="status-bar">
+  <span class="status-time" id="clock">9:41</span>
+</div>
+
+<div class="scroll-view" id="scrollView">
+  <!-- HERO with fireworks canvas -->
+  <div class="hero">
+    <canvas id="fireworks"></canvas>
+    <div class="hero-content">
+      <div class="anniversary-badge">&#127482;&#127480; July 4, 1776 – 2026</div>
+      <div class="hero-number"><span>250</span></div>
+      <div class="hero-subtitle">Years of America</div>
+      <div class="star-row">
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+      </div>
+      <div class="hero-date">Independence Day · MMXXVI</div>
+    </div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="section">
+    <div class="countdown-card">
+      <div class="countdown-label">&#127881; Countdown to July 4, 2026</div>
+      <div class="countdown-grid">
+        <div class="count-unit"><span class="count-num" id="cd-days">21</span><div class="count-label">Days</div></div>
+        <div class="count-unit"><span class="count-num" id="cd-hrs">14</span><div class="count-label">Hours</div></div>
+        <div class="count-unit"><span class="count-num" id="cd-min">33</span><div class="count-label">Mins</div></div>
+        <div class="count-unit"><span class="count-num" id="cd-sec">07</span><div class="count-label">Secs</div></div>
+      </div>
+    </div>
+
+    <div class="flag-strip">
+      <div class="flag-red"></div><div class="flag-white"></div><div class="flag-red"></div>
+      <div class="flag-white"></div><div class="flag-red"></div><div class="flag-white"></div>
+      <div class="flag-red"></div>
+    </div>
+
+    <!-- PLEDGE -->
+    <div class="pledge-card">
+      <div class="pledge-quote">"We hold these truths to be <em>self-evident</em>, that all men are created <em>equal</em>."</div>
+      <div class="pledge-source">— Declaration of Independence, 1776</div>
+    </div>
+
+    <!-- MILESTONES -->
+    <div class="section-title">250 Years of Milestones</div>
+  </div>
+
+  <div class="section" style="padding-right:0;">
+    <div class="milestone-scroll" id="milestones"></div>
+  </div>
+
+  <div class="section">
+    <!--<button class="firework-btn" id="launchBtn" onclick="launchBurst()">&#127881; Launch Fireworks</button>-->
+
+    <!-- STATS -->
+    <div class="section-title">America by the Numbers</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;text-align:center;">
+        <div style="font-size:26px;font-weight:700;color:#FFD700;">50</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;letter-spacing:1px;text-transform:uppercase;">States</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;text-align:center;">
+        <div style="font-size:26px;font-weight:700;color:#FFD700;">335M</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;letter-spacing:1px;text-transform:uppercase;">Americans</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;text-align:center;">
+        <div style="font-size:26px;font-weight:700;color:#FFD700;">27</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;letter-spacing:1px;text-transform:uppercase;">Amendments</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;text-align:center;">
+        <div style="font-size:26px;font-weight:700;color:#FFD700;">45+</div>
+        <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:2px;letter-spacing:1px;text-transform:uppercase;">Presidents</div>
+      </div>
+    </div>
+
+    <div class="bottom-stripes"></div>
+    <div class="safe-bottom"></div>
+  </div>
+</div>
+
+<script>
+// Clock
+function updateClock() {
+  const now = new Date();
+  let h = now.getHours(), m = now.getMinutes();
+  document.getElementById('clock').textContent = h + ':' + (m<10?'0':'')+m;
+}
+updateClock(); setInterval(updateClock, 60000);
+
+// Countdown to July 4, 2026
+function updateCountdown() {
+  const target = new Date('2026-07-04T00:00:00');
+  const now = new Date();
+  let diff = target - now;
+  if (diff < 0) diff = 0;
+  const days = Math.floor(diff / 86400000);
+  const hrs = Math.floor((diff % 86400000) / 3600000);
+  const min = Math.floor((diff % 3600000) / 60000);
+  const sec = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = days;
+  document.getElementById('cd-hrs').textContent = hrs;
+  document.getElementById('cd-min').textContent = String(min).padStart(2,'0');
+  document.getElementById('cd-sec').textContent = String(sec).padStart(2,'0');
+}
+updateCountdown(); setInterval(updateCountdown, 1000);
+
+// Milestones data
+const milestones = [
+  {year:'1776', title:'Declaration of Independence', desc:'The 13 colonies declare freedom from Britain.', color:'red'},
+  {year:'1787', title:'The Constitution', desc:'A framework for democracy is born in Philadelphia.', color:'blue'},
+  {year:'1803', title:'Louisiana Purchase', desc:'The nation doubles in size overnight.', color:'gold'},
+  {year:'1865', title:'End of Civil War', desc:'Slavery abolished. The Union preserved.', color:'red'},
+  {year:'1903', title:'First Flight', desc:'The Wright Brothers take to the skies at Kitty Hawk.', color:'blue'},
+  {year:'1920', title:"Women's Suffrage", desc:'The 19th Amendment gives women the right to vote.', color:'gold'},
+  {year:'1969', title:'Moon Landing', desc:'Neil Armstrong takes one giant leap for mankind.', color:'blue'},
+  {year:'2026', title:'250th Birthday', desc:"America's semiquincentennial celebration!", color:'gold'},
+];
+
+const ms = document.getElementById('milestones');
+milestones.forEach(m => {
+  const card = document.createElement('div');
+  card.className = 'milestone-card ' + m.color;
+  card.innerHTML = `<div class="milestone-year">${m.year}</div><div class="milestone-title">${m.title}</div><div class="milestone-desc">${m.desc}</div>`;
+  ms.appendChild(card);
+});
+
+// FIREWORKS ENGINE
+const canvas = document.getElementById('fireworks');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let autoInterval;
+
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resizeCanvas();
+
+const COLORS = [
+  ['#FF4444','#FF8888','#FFBBBB'],
+  ['#FFD700','#FFE44D','#FFF3A0'],
+  ['#FFFFFF','#DDDDFF','#AAAACC'],
+  ['#4488FF','#88AAFF','#BBCCFF'],
+  ['#FF6622','#FFAA44','#FFD088'],
+];
+
+class Particle {
+  constructor(x, y, color, trail) {
+    this.x = x; this.y = y;
+    this.ox = x; this.oy = y;
+    const angle = Math.random() * Math.PI * 2;
+    const speed = trail ? (Math.random()*3+1) : (Math.random()*5+2);
+    this.vx = Math.cos(angle) * speed;
+    this.vy = Math.sin(angle) * speed;
+    this.alpha = 1;
+    this.color = color;
+    this.size = trail ? (Math.random()*2+1) : (Math.random()*3+1);
+    this.decay = trail ? 0.025 : (Math.random()*0.012+0.008);
+    this.gravity = trail ? 0.1 : 0.07;
+    this.trail = trail || [];
+    this.isTrail = !!trail;
+  }
+  update() {
+    if (!this.isTrail) this.trail.unshift({x:this.x, y:this.y});
+    if (!this.isTrail && this.trail.length > 4) this.trail.pop();
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += this.gravity;
+    this.vx *= 0.98;
+    this.alpha -= this.decay;
+  }
+  draw() {
+    ctx.save();
+    if (!this.isTrail && this.trail.length > 1) {
+      for (let i=1; i<this.trail.length; i++) {
+        const a = this.alpha * (1 - i/this.trail.length) * 0.4;
+        ctx.beginPath();
+        ctx.moveTo(this.trail[i-1].x, this.trail[i-1].y);
+        ctx.lineTo(this.trail[i].x, this.trail[i].y);
+        ctx.strokeStyle = this.color + Math.floor(a*255).toString(16).padStart(2,'0');
+        ctx.lineWidth = this.size * (1-i/this.trail.length);
+        ctx.stroke();
+      }
+    }
+    ctx.globalAlpha = Math.max(0, this.alpha);
+    ctx.fillStyle = this.color;
+    ctx.shadowColor = this.color;
+    ctx.shadowBlur = this.isTrail ? 0 : 6;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+class Shell {
+  constructor(x, targetY) {
+    this.x = x;
+    this.y = canvas.height + 10;
+    this.targetY = targetY;
+    this.vy = -18;
+    this.exploded = false;
+    this.colorSet = COLORS[Math.floor(Math.random()*COLORS.length)];
+  }
+  update() {
+    this.y += this.vy;
+    this.vy += 0.4;
+    if (this.vy >= 0 || this.y <= this.targetY) {
+      this.explode();
+      return true;
+    }
+    return false;
+  }
+  explode() {
+    const count = 80 + Math.floor(Math.random()*60);
+    for (let i=0; i<count; i++) {
+      particles.push(new Particle(this.x, this.y, this.colorSet[Math.floor(Math.random()*this.colorSet.length)]));
+    }
+  }
+  draw() {
+    ctx.save();
+    ctx.fillStyle = this.colorSet[0];
+    ctx.shadowColor = this.colorSet[0];
+    ctx.shadowBlur = 8;
+    ctx.globalAlpha = 0.9;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, 3, 0, Math.PI*2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+let shells = [];
+let animating = false;
+let animFrame;
+
+function launchShell() {
+  const x = 30 + Math.random() * (canvas.width - 60);
+  const targetY = 40 + Math.random() * (canvas.height * 0.55);
+  shells.push(new Shell(x, targetY));
+}
+
+function launchBurst() {
+  resizeCanvas();
+  if (!animating) startAnimation();
+  for (let i=0; i<3; i++) {
+    setTimeout(() => launchShell(), i*180);
+  }
+}
+
+function animate() {
+  animFrame = requestAnimationFrame(animate);
+  ctx.fillStyle = 'rgba(4,7,26,0.18)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  shells = shells.filter(s => {
+    const done = s.update();
+    if (!done) s.draw();
+    return !done;
+  });
+
+  particles = particles.filter(p => {
+    p.update();
+    if (p.alpha > 0) p.draw();
+    return p.alpha > 0;
+  });
+}
+
+function startAnimation() {
+  animating = true;
+  animate();
+}
+
+// Auto-launch on load
+window.addEventListener('load', () => {
+  resizeCanvas();
+  startAnimation();
+  // Initial burst
+  for (let i=0; i<4; i++) {
+    setTimeout(() => launchShell(), i*300 + 200);
+  }
+  // Auto-launch every 4s
+  autoInterval = setInterval(() => {
+    launchShell();
+    if (Math.random() > 0.5) setTimeout(launchShell, 400);
+  }, 4000);
+});
+
+window.addEventListener('resize', resizeCanvas);
+</script>
+</body>
+</html>
