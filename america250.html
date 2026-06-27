@@ -4,6 +4,17 @@
 <title>America 250</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+  :root {
+    --black: #0d0d0d;
+    --dark: #141414;
+    --card: #1a1a1a;
+    --gold: #f5a623;
+    --gold-light: #ffc14d;
+    --white: #ffffff;
+    --gray: #999;
+    --light-gray: #c8c8c8;
+    --border: #2a2a2a;
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:#04071A; font-family: -apple-system, 'SF Pro Display', sans-serif; overflow-x:hidden; }
 
@@ -18,10 +29,28 @@
   .nav-logo { display: flex; align-items: center; gap: 10px; }
   .nav-logo svg { width: 36px; height: 36px; }
   .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: var(--gold); }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a { color: var(--light-gray); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; transition: color .2s; }
-  .nav-links a:hover { color: var(--gold); }
-  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .btn-back {
+    background: linear-gradient(to right, #B22234, #FFFFFF, #3C3B6E);
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+  .btn-back:hover {
+    background: linear-gradient(to right, #8B0000, #DDDDDD, #2a2960);
+    color: #000;
+  }
+
+  .btn-back::after {
+  content: ' →';
+  }
 
   /* HERO */
   .hero { position:relative; height:520px; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:40px; overflow:hidden; }
@@ -94,6 +123,11 @@
     <a href="#">
       <img src="assets/logo.png" alt="Precision Auto" style="height: 60px; width: auto;">
     </a>
+  </div>
+  <ul class="nav-links">
+  </ul>
+  <div class="nav-right">
+    <a href="index.html" class="btn-back">Return to ACS </a>
   </div>
 </nav>
 
