@@ -41,21 +41,110 @@
     background: var(--gold); color: var(--black); font-weight: 700; font-size: 13px;
     text-transform: uppercase; letter-spacing: 1px; padding: 10px 20px;
     border: none; cursor: pointer; text-decoration: none;
-    border-radius: 8px;
-    transition: background .2s;
+    border-radius: 8px; transition: background .2s;
   }
   .btn-book:hover { background: var(--gold-light); }
+  
+  /* Mobile hamburger */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--light-gray);
+    border-radius: 2px;
+    transition: all .2s;
+  }
+  .mobile-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 150;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+  .mobile-overlay.open { display: block; }
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; right: 0;
+    width: 75%;
+    max-width: 300px;
+    height: 100vh;
+    background: var(--dark);
+    border-left: 1px solid var(--border);
+    z-index: 200;
+    padding: 24px 28px;
+    gap: 0;
+    transform: translateX(100%);
+    transition: transform 0.28s ease;
+    overflow-y: auto;
+  }
+  .mobile-menu.open { transform: translateX(0); }
+  .mobile-menu-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: var(--light-gray);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 4px;
+    margin-bottom: 24px;
+    line-height: 1;
+  }
+  .mobile-menu-close:hover { color: var(--gold); }
+  .mobile-menu a {
+    color: var(--light-gray);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color .2s;
+  }
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--gold); }
+  .mobile-menu .mobile-phone {
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 16px;
+    border-bottom: none;
+    margin-top: 12px;
+  }
 
   /* HERO */
+  .hero-section {
+    background-image: url('assets/BGImage.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.6);
+  }
   .hero {
     padding: 90px 80px 80px;
     border-bottom: 1px solid var(--border);
     max-width: 1200px; margin: 0 auto;
+    position: relative; z-index: 1;
   }
   .hero-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(64px, 8vw, 110px);
+    font-size: clamp(56px, 10vw, 110px);
     line-height: .95;
     letter-spacing: 2px;
     color: var(--white);
@@ -70,9 +159,6 @@
     padding: 14px 28px; border: none; cursor: pointer;
     text-decoration: none; display: inline-block; transition: background .2s;
     border-radius: 8px;
-
-
-
   }
   .btn-primary:hover { background: var(--gold-light); }
   .btn-outline {
@@ -82,43 +168,9 @@
     transition: border-color .2s, color .2s;
   }
   .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-  /* BADGES */
-  .badges {
-    background: var(--dark);
-    border-bottom: 1px solid var(--border);
-    padding: 28px 80px;
-  }
-  .badges-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    gap: 48px;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  .badge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 10px;
-  }
-  .badge-icon {
-    color: var(--gold);
-    font-size: 28px;
-  }
-  .badge-text strong {
-    display: block;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-  .badge-text span {
-    font-size: 12px;
-    color: var(--gray);
-  }
+  .hero-stars { display: flex; align-items: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+  .hero-stars span { color: #ccc; font-size: 14px; }
+  .hero-stars span .star { color: #c8933a; }
 
   /* SECTION LABEL */
   .section-label {
@@ -127,11 +179,12 @@
     text-align: center; margin-bottom: 16px;
   }
 
-  /* WHAT WE DO */
-  .what-we-do { padding: 80px 80px; max-width: 1200px; margin: 0 auto; }
+  /* SERVICES */
+  .services-section { background: var(--black); overflow: hidden; }
+  .what-we-do { padding: 80px; max-width: 1200px; margin: 0 auto; }
   .what-we-do h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(40px, 5vw, 64px);
+    font-size: clamp(36px, 5vw, 64px);
     letter-spacing: 2px; text-align: center; line-height: 1;
     margin-bottom: 12px;
   }
@@ -140,12 +193,10 @@
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2px; background: var(--border);
   }
-  .service-card {
-    background: var(--card); padding: 36px 32px;
-    transition: background .2s;
-  }
+  .service-card { background: var(--card); padding: 36px 32px; transition: background .2s; }
   .service-card:hover { background: #202020; }
-  .service-card .icon { color: var(--gold); font-size: 28px; margin-bottom: 16px; }
+  .service-card .icon { color: var(--gold); margin-bottom: 16px; }
+  .service-card .icon img { width: 100%; max-width: 270px; height: 180px; object-fit: cover; display: block; }
   .service-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 10px; }
   .service-card p { color: var(--gray); font-size: 14px; line-height: 1.65; }
 
@@ -154,7 +205,7 @@
   .why-inner { max-width: 1200px; margin: 0 auto; }
   .why h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(40px, 5vw, 64px);
+    font-size: clamp(36px, 5vw, 64px);
     letter-spacing: 2px; text-align: center; line-height: 1;
     margin-bottom: 56px;
   }
@@ -165,10 +216,11 @@
   .why-item .why-tag { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-top: 16px; }
 
   /* REVIEWS */
+  .reviews-section { background: var(--black); }
   .reviews { padding: 80px; max-width: 1200px; margin: 0 auto; }
   .reviews h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(38px, 4vw, 58px);
+    font-size: clamp(34px, 4vw, 58px);
     letter-spacing: 2px; text-align: center; line-height: 1;
     margin-bottom: 8px;
   }
@@ -187,75 +239,73 @@
     color: #f5a623;
   }
 
-  /* STORE */
-  .store {
-    background: var(--dark); border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border); padding: 80px;
-    text-align: center;
+  /* ABOUT */
+  .about-section {
+    background: var(--black);
+    display: flex;
+    align-items: stretch;
+    min-height: 480px;
+    overflow: hidden;
   }
-  .store-inner { max-width: 700px; margin: 0 auto; }
-  .store h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(40px, 5vw, 64px); letter-spacing: 2px; margin-bottom: 16px;
+  .about-image {
+    width: 45%;
+    flex-shrink: 0;
+    overflow: hidden;
   }
-  .store p { color: var(--gray); font-size: 16px; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
-  .store-products {
-    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 40px;
+  .about-image img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
   }
-  .store-product {
-    background: var(--card); border: 1px solid var(--border);
-    padding: 24px 20px; width: 180px; text-align: center;
-    transition: border-color .2s, transform .2s;
-    text-decoration: none; color: var(--white);
+  .about-content {
+    flex: 1;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1.25rem;
   }
-  .store-product:hover { border-color: var(--gold); transform: translateY(-3px); }
-  .store-product .prod-icon { font-size: 32px; margin-bottom: 12px; }
-  .store-product .prod-name { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
-  .store-product .prod-price { font-size: 15px; color: var(--gold); font-weight: 700; }
-  .btn-store {
-    background: transparent; color: var(--gold);
-    border: 2px solid var(--gold); font-weight: 700;
-    font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase;
-    padding: 16px 40px; text-decoration: none; display: inline-block;
-    transition: background .2s, color .2s;
+  .about-eyebrow {
+    font-family: Arial, sans-serif; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.15em; color: var(--gold); text-transform: uppercase; margin: 0;
   }
-  .btn-store:hover { background: var(--gold); color: var(--black); }
+  .about-heading {
+    font-family: Georgia, serif; font-size: 2.2rem; font-weight: 800;
+    color: #fff; line-height: 1.1; margin: 0;
+  }
+  .about-heading span { color: #888; }
+  .about-body {
+    font-family: Arial, sans-serif; font-size: 15px; line-height: 1.7; color: #aaa; margin: 0;
+  }
 
-  /* CTA */
-  .cta-section {
-    padding: 80px;
-  }
+  /* CONTACT */
+  .cta-section { padding: 80px; }
   .cta-inner {
     max-width: 1200px; margin: 0 auto;
     display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
   }
   .cta-left h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(38px, 4vw, 56px); letter-spacing: 2px; line-height: 1; margin-bottom: 24px;
+    font-size: clamp(34px, 4vw, 56px); letter-spacing: 2px; line-height: 1; margin-bottom: 24px;
   }
   .cta-left p { color: var(--gray); font-size: 15px; margin-bottom: 32px; line-height: 1.7; }
   .cta-points { list-style: none; display: flex; flex-direction: column; gap: 12px; }
   .cta-points li { display: flex; align-items: center; gap: 12px; font-size: 14px; color: var(--light-gray); }
   .cta-points li::before { content: '✓'; color: var(--gold); font-weight: 700; }
   .cta-right h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
-  .acs-guarantee { margin-top: auto; padding-top: 2rem}
+  .acs-guarantee { margin-top: auto; padding-top: 2rem; }
   .acs-guarantee p { font-size: 0.95rem; font-style: italic; color: #f5a623; font-weight: 600; line-height: 1.6; margin: 0; }
   .form-group { margin-bottom: 16px; }
   .form-group input, .form-group textarea, .form-group select {
     width: 100%; background: #1e1e1e; border: 1px solid var(--border);
     color: var(--white); font-family: 'Barlow', sans-serif;
     font-size: 14px; outline: none; transition: border-color .2s;
-    padding: 12px 16px;
-    box-sizing: border-box;
+    padding: 12px 16px; box-sizing: border-box;
   }
   .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
   .form-group textarea { height: 100px; resize: vertical; color-scheme: dark; }
   .form-group select {
-    appearance: none;
-    -webkit-appearance: none;
+    appearance: none; -webkit-appearance: none;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
+    background-repeat: no-repeat; background-position: right 16px center;
   }
   .form-group select option { background: #1e1e1e; }
   .btn-send {
@@ -282,22 +332,128 @@
   .footer-col address { font-style: normal; color: var(--gray); font-size: 13px; line-height: 1.8; }
   .footer-col address a { color: var(--gray); text-decoration: none; transition: color .2s; }
   .footer-col address a:hover { color: var(--gold); }
+  .footer-social { margin-bottom: 24px; }
   .footer-bottom { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; }
   .footer-bottom p { color: #555; font-size: 12px; }
   .footer-bottom a { color: #555; text-decoration: none; font-size: 12px; }
   .footer-bottom a:hover { color: var(--gold); }
 
+  /* MOBILE CALL BAR */
+  .mobile-call-bar {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: var(--gold);
+    z-index: 200;
+    padding: 0;
+  }
+  .mobile-call-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 16px;
+  }
+
+  /* RESPONSIVE */
+
+  /* Tablet: ≤ 900px */
   @media (max-width: 900px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
-    .hero { padding: 60px 24px; }
-    .badges { padding: 24px; }
-    .what-we-do, .why, .reviews, .store, .cta-section, footer { padding: 60px 24px; }
-    .why-grid { grid-template-columns: 1fr; gap: 32px; }
+    .nav-phone { display: none; }
+    .nav-right .footer-social { display: none; }
+    .nav-hamburger { display: flex; }
+
+    .hero { padding: 48px 20px 56px; }
+    .hero h1 { font-size: clamp(52px, 13vw, 80px); }
+    .hero-sub { font-size: 15px; margin: 20px 0 28px; }
+    .hero-stars { gap: 1rem; }
+
+    .what-we-do { padding: 56px 20px; }
+    .what-we-do .sub { margin-bottom: 36px; }
+
+    .why { padding: 56px 20px; }
+    .why h2 { margin-bottom: 36px; }
+    .why-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+    .reviews { padding: 56px 20px; }
+
+    .about-section { flex-direction: column; min-height: unset; }
+    .about-image { width: 100%; height: 260px; flex-shrink: unset; }
+    .about-content { padding: 2rem 1.5rem; gap: 1rem; }
+    .about-heading { font-size: 1.8rem; }
+
+    .cta-section { padding: 56px 20px; }
     .cta-inner { grid-template-columns: 1fr; gap: 40px; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
+
+    footer { padding: 48px 20px 100px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
     .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+
+    .mobile-call-bar { display: block; }
+    body { padding-bottom: 60px; }
   }
+
+  /* Mobile: ≤ 600px */
+  @media (max-width: 600px) {
+    nav { height: 56px; }
+
+    .hero { padding: 36px 16px 48px; }
+    .hero-tag { font-size: 10px; margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(46px, 14vw, 64px); letter-spacing: 1px; }
+    .hero-sub { font-size: 14px; margin: 16px 0 24px; }
+    .hero-ctas { gap: 12px; }
+    .btn-primary { padding: 13px 22px; font-size: 13px; }
+    .hero-stars { gap: 0.6rem; margin-top: 1.5rem; }
+    .hero-stars span { font-size: 12px; }
+
+    .what-we-do { padding: 40px 16px; }
+    .what-we-do h2 { font-size: clamp(32px, 10vw, 48px); margin-bottom: 10px; }
+    .what-we-do .sub { font-size: 14px; margin-bottom: 28px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .service-card { padding: 24px 20px; }
+    .service-card .icon img { max-width: 100%; height: 200px; }
+
+    .why { padding: 40px 16px; }
+    .why h2 { font-size: clamp(32px, 10vw, 48px); margin-bottom: 28px; }
+    .why-grid { grid-template-columns: 1fr; gap: 28px; }
+
+    .reviews { padding: 40px 16px; }
+    .reviews h2 { font-size: clamp(30px, 9vw, 44px); }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .review-card { padding: 24px 20px; }
+
+    .about-image { height: 220px; }
+    .about-content { padding: 1.75rem 1.25rem; }
+    .about-heading { font-size: 1.6rem; }
+    .about-body { font-size: 14px; }
+
+    .cta-section { padding: 40px 16px; }
+    .cta-left h2 { font-size: clamp(30px, 9vw, 44px); }
+    .cta-left p { font-size: 14px; }
+    .acs-guarantee p { font-size: 0.9rem; }
+
+    footer { padding: 40px 16px 100px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+    .footer-brand p { max-width: 100%; }
+
+    .mobile-call-bar a { font-size: 15px; }
+  }
+
+  /* Very small: ≤ 380px */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 42px; }
+    .hero-stars { display: none; }
+    .btn-primary { padding: 12px 18px; }
+  }
+  
 </style>
 </head>
 <body>
@@ -306,7 +462,7 @@
 <nav>
   <div class="nav-logo">
     <a href="#">
-      <img src="assets/logo2.png" alt="Precision Auto" style="height: 60px; width: auto;">
+      <img src="assets/logo2.png" alt="ACS Auto Repair" style="height: 56px; width: auto;">
     </a>
   </div>
   <ul class="nav-links">
@@ -314,33 +470,37 @@
     <li><a href="#services">Services</a></li>
     <li><a href="#reviews">Testimonials</a></li>
     <li><a href="#about">About Us</a></li>
-    <!--<li><a href="store.html">Store</a></li>-->
   </ul>
   <div class="nav-right">
     <span class="nav-phone">(847) 262-3335</span>
     <!--<a href="#contact" class="btn-book">Book Appointment</a>-->
-    <div class="footer-social">
-      <a href="https://www.facebook.com/people/Automotive-Connection-Svc/100064250735987/?rdid=LifbCoOOcLUnUFj6&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Aq3S6Pz68%2F" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
-        <img src="assets/facebook2019.png" alt="Facebook" width="30" height="30">
-      </a>
-    </div>
+    <button class="nav-hamburger" aria-label="Open menu" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
 
-<div style="display: flex; flex-direction: column; gap: 80px;">
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
+  <a href="america250.html" style="background: linear-gradient(to right, #BF0A30, #ffffff, #002868); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">America 250</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#reviews" onclick="closeMenu()">Testimonials</a>
+  <a href="#about" onclick="closeMenu()">About Us</a>
+  <a href="#contact" onclick="closeMenu()">Contact Us</a>
+  <a href="tel:8472623335" class="mobile-phone">(847) 262-3335</a>
+  <a href="https://www.facebook.com/people/Automotive-Connection-Svc/100064250735987/" target="_blank" rel="noopener noreferrer">Facebook</a>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 0;">
 
 <!-- HERO -->
-<section style="
-  background-image: url('assets/BGImage.jpg');
-  background-size: cover;
-  background-position: center;
-  position: relative;
-">
-  <!-- Dark overlay -->
-  <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6);"></div>
-
-  <div class="hero" style="position: relative; z-index: 1;">
-    <!--<p class="hero-tag">&#x2605; Family Owned &amp; Operated</p>-->
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="hero">
     <p class="hero-tag">&#x2605; Veteran owned, Family operated.</p>
     <h1>25 Years.<br>One Standard.<br><span>Done Right.</span></h1>
     <p class="hero-sub">
@@ -349,22 +509,19 @@
     </p>
     <div class="hero-ctas">
       <a href="#contact" class="btn-primary">Contact Us</a>
-      <!--<a href="tel:5553214567" class="btn-outline">&#9742; Call Us Now</a>-->
     </div>
-    
-    <!-- Star bar -->
-    <div style="display: flex; align-items: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;">
-      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> 20+ Years Experience</span>
-      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> Family Owned &amp; Operated</span>
-      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> Honest, Fair Pricing</span>
-      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> Factory-Spec Repairs</span>
-      <span style="color: #ccc; font-size: 14px;"><span style="color: #c8933a;">&#9733;</span> Electrical Specialists</span>
+    <div class="hero-stars">
+      <span><span class="star">★</span> 20+ Years Experience</span>
+      <span><span class="star">★</span> Family Owned &amp; Operated</span>
+      <span><span class="star">★</span> Honest, Fair Pricing</span>
+      <span><span class="star">★</span> Factory-Spec Repairs</span>
+      <span><span class="star">★</span> Electrical Specialists</span>
     </div>
   </div>
 </section>
 
 <!-- WHAT WE DO -->
-<section id="services" style="background: var(--black); align-items:stretch; min-height:480px; overflow:hidden;">
+<section id="services" class="services-section">
   <div class="what-we-do">
     <p class="section-label">What We Do</p>
     <h2>Precision Diagnostics.<br>Factory-Spec Repairs.</h2>
@@ -372,41 +529,41 @@
     <div class="services-grid">
       <div class="service-card">
         <div class="icon">
-          <image src="assets/2232959365.jpg" alt="Engine Diagnostics" style="width:270px; height: 180px; object-fit: cover;">
+          <img src="assets/2232959365.jpg" alt="Engine Diagnostics">
         </div>
         <h3>Engine Diagnostics &amp; Repair</h3>
-        <p>Advanced computer diagnostics or pinpoint exactly what's wrong — no guessing, no unnecessary work.</p>
+        <p>Advanced computer diagnostics to pinpoint exactly what's wrong — no guessing, no unnecessary work.</p>
       </div>
       <div class="service-card">
         <div class="icon">
-          <image src="assets/2223501558.jpg" alt="Electrical" style="width:270px; height: 180px; object-fit: cover;">
+          <img src="assets/2223501558.jpg" alt="Electrical">
         </div>
         <h3>Electrical &amp; Wiring</h3>
         <p>Specialty: electrical problems, wiring, harness issues, module programming — we trace it, fix it.</p>
       </div>
       <div class="service-card">
         <div class="icon">
-          <image src="assets/2235908893_002.jpg" alt="Airbag & Engine" style="width:270px; height: 180px; object-fit: cover;">
+          <img src="assets/2235908893_002.jpg" alt="Airbag & Engine">
         </div>
         <h3>Airbag &amp; Check Engine Light</h3>
         <p>SRS and MIL diagnostics done to the component level. Don't ignore warning lights — we get to the root cause.</p>
       </div>
       <div class="service-card">
         <div class="icon">
-          <image src="assets/2249614998.jpg" alt="Brake Service" style="width:270px; height: 180px; object-fit: cover;"></image>
+          <img src="assets/2249614998.jpg" alt="Brake Service">
         </div>
         <h3>Brake Service</h3>
         <p>From squeaky pads to worn rotors, our certified technicians handle it all. Your safety is our priority.</p>
       </div>
       <div class="service-card">
         <div class="icon">
-          <image src="assets/2227813340.jpg" alt="General Maintenance" style="width:270px; height: 180px; object-fit: cover;"></image>
+          <img src="assets/2227813340.jpg" alt="General Maintenance">
         </div>
         <h3>General Maintenance &amp; Repairs</h3>
         <p>Oil changes, brakes, tires, suspension, and everything in between. Factory-spec work, every time.</p>
       </div>
       <div class="service-card">
-        <!-- Add new service card here -->
+        <!-- Placeholder for future service card -->
       </div>
     </div>
   </div>
@@ -420,7 +577,7 @@
     <div class="why-grid">
       <div class="why-item">
         <div class="why-icon">💬</div>
-        <p>"They gave us the news straight and never tried to upset on parts or services we didn't need."</p>
+        <p>"They gave us the news straight and never tried to upsell on parts or services we didn't need."</p>
         <div class="why-tag">We Tell You The Truth</div>
       </div>
       <div class="why-item">
@@ -430,7 +587,7 @@
       </div>
       <div class="why-item">
         <div class="why-icon">⭐</div>
-        <p>"Bob came to the dealership on his own time to inspect a car I was thinking of buying. He explained everything I learned more than I knew before."</p>
+        <p>"Bob came to the dealership on his own time to inspect a car I was thinking of buying. He explained everything — I learned more than I knew before."</p>
         <div class="why-tag">We Go The Extra Mile</div>
       </div>
     </div>
@@ -438,7 +595,7 @@
 </div>
 
 <!-- REVIEWS -->
-<section id="reviews" style="background: var(--black);">
+<section id="reviews" class="reviews-section">
   <div class="reviews">
     <p class="section-label">Real Reviews</p>
     <h2>Trusted by Families<br>for Over Two Decades</h2>
@@ -475,102 +632,80 @@
         <div class="reviewer"><strong>— Maria T.</strong><span>New customer</span></div>
       </div>
     </div>
-    <p> <span style="color: #999;">Also rated</span>
+    <p style="margin-top: 24px;">
+      <span style="color: #999;">Also rated</span>
       <span style="color:#f5a623;">★</span> <strong>5 stars</strong> <span style="color: #999;">on</span>
       <a href="https://www.google.com/search?client=safari&hs=qzn&sca_esv=7c342a9f7d213956&rls=en&channel=49&sxsrf=APpeQntMoA73WRHLReD-yQKV-C_urtPsIw:1782346623310&si=APenkKnzv9m99ToiohAuzpadUwbOz34nZJ3j2Ukmo5XOUYWAphjZSoL5nkmbBs3GOfuL0I1Lh1I-YO5Elk8oaF3sjz692Ee-cXyGsHDIB01JtinpdH6GGFRw6Q5y8yf-S4pWIqksg1xpjXMyexM-gLN3movb8wSqkdmNvhjb7495Y8glhQIRbZY%3D&q=Automotive+Connections+Services,+Corp.+Reviews&sa=X&ved=2ahUKEwiJ1-TKjqGVAxVelisGHWTpBPcQ0bkNegQIMBAF&biw=1440&bih=705&dpr=2" target="_blank" class="review-btn">Google Reviews.</a>
     </p>
   </div>
 </section>
 
-<!-- WHO WE ARE SECTION -->
-<section id="about" style="background: var(--black); display:flex; align-items:stretch; min-height:680px; overflow:hidden;">
-
-  <!-- Left: Image -->
-  <div style="width:45%; flex-shrink:0; overflow:hidden;">
-    <img src="assets/7962315_orig.jpg" alt="Bob McDonough, founder of Automotive Connections Services"
-         style="width:100%; height:100%; object-fit:cover; display:block;">
+<!-- WHO WE ARE -->
+<section id="about" class="about-section">
+  <div class="about-image">
+    <img src="assets/7962315_orig.jpg" alt="Bob McDonough, founder of Automotive Connections Services">
   </div>
-
-  <!-- Right: Content -->
-  <div style="flex:1; padding:3rem 2.5rem; display:flex; flex-direction:column; justify-content:center; gap:1.25rem;">
-    
-    <p style="font-family:Arial,sans-serif; font-size:12px; font-weight:700; letter-spacing:0.15em; color: var(--gold); text-transform:uppercase; margin:0;">
-      Who We Are
-    </p>
-    
-    <h2 style="font-family:Georgia,serif; font-size:2.2rem; font-weight:800; color:#fff; line-height:1.1; margin:0;">
+  <div class="about-content">
+    <p class="about-eyebrow">Who We Are</p>
+    <h2 class="about-heading">
       Not a Franchise.<br>
-      <span style="color:#888;">Just Family.</span>
+      <span>Just Family.</span>
     </h2>
-    
-    <p style="font-family:Arial,sans-serif; font-size:15px; line-height:1.7; color:#aaa; margin:0;">
+    <p class="about-body">
       Bob McDonough, founder and owner of Automotive Connections Services, has been working on vehicles since he was 12 years old growing up on Chicago's north side. Almost three decades of real-world experience means we've seen it all — and fixed most of it. Bob's passion for keenly understanding the engineering on practically anything that moves or carries a current has led him to the exacting expertise he shares with every client. Simply put, Bob is an automotive electrical genius.
     </p>
-    
-    <p style="font-family:Arial,sans-serif; font-size:15px; line-height:1.7; color:#aaa; margin:0;">
+    <p class="about-body">
       ACS isn't a franchise. It's Bob and a team that cares about your car the way you do. Bob has passed his knowledge on to his apprentices, who work diligently to service vehicles of all makes and models all over the Chicagoland area — to factory specs, because your car deserves nothing less. No shortcuts, no guesswork, no unnecessary upsells. Just honest diagnostics and expert repairs from people who treat every vehicle like it belongs to their own family. When dealerships have exhausted their best mechanics without success, they call on ACS.
     </p>
-
-    <p style="font-family:Arial,sans-serif; font-size:15px; line-height:1.7; color:#aaa; margin:0;">
+    <p class="about-body">
       Mobility is one of ACS's strongest assets. We come to your shop, home, work, or garage — just about anywhere in the Chicago metro area — to service your vehicle.
     </p>
-    
-    <!--
-    <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; margin-top:0.5rem;">
-      <a href="about.html" style="background:transparent; border:1px solid #555; color:#fff; padding:0.7rem 1.4rem; font-size:14px; font-weight:600; border-radius:6px; text-decoration:none; font-family:Arial,sans-serif;">
-        Read Our Full Story →
-      </a>
-      <a href="tel:5551234567" style="color:#aaa; font-size:14px; text-decoration:none; font-family:Arial,sans-serif;">
-        📞 Or just call us directly
-      </a>
-    </div>-->
-
-
   </div>
 </section>
 
 <!-- CONTACT / CTA -->
-<section id="contact" style="min-height:780px;">
-<div class="cta-section">
-<div class="cta-inner">
-  <div class="cta-left">
-    <h2>Ready to Work With Mechanics You Can Actually Trust?</h2>
-    <p>Tell us what you need. We'll get back to you within 24 hours — usually sooner — with an honest assessment. No obligation, no pressure.</p>
-    <ul class="cta-points">
-      <li>Response within 24 hours</li>
-      <li>No obligation estimates</li>
-      <li>Honest assessment — no upsells</li>
-    </ul>
-    <div class="acs-guarantee">
-      <p>If ACS cannot repair it, you won't pay for it!<br>That is the ACS guarantee!</p>
+<section id="contact">
+  <div class="cta-section">
+    <div class="cta-inner">
+      <div class="cta-left">
+        <h2>Ready to Work With Mechanics You Can Actually Trust?</h2>
+        <p>Tell us what you need. We'll get back to you within 24 hours — usually sooner — with an honest assessment. No obligation, no pressure.</p>
+        <ul class="cta-points">
+          <li>Response within 24 hours</li>
+          <li>No obligation estimates</li>
+          <li>Honest assessment — no upsells</li>
+        </ul>
+        <div class="acs-guarantee">
+          <p>If ACS cannot repair it, you won't pay for it!<br>That is the ACS guarantee!</p>
+        </div>
+      </div>
+      <div class="cta-right">
+        <h3>Request a Quote</h3>
+        <form action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+          <div class="form-group"><input type="text" name="name" placeholder="Full Name" required></div>
+          <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number"></div>
+          <div class="form-group"><input type="email" name="email" placeholder="Email" required></div>
+          <div class="form-group">
+            <select name="service">
+              <option value="" disabled selected>Service Needed</option>
+              <option>Engine Diagnostics</option>
+              <option>Electrical &amp; Wiring</option>
+              <option>Airbag &amp; Check Engine</option>
+              <option>Brake Service</option>
+              <option>General Maintenance</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><textarea name="message" placeholder="e.g., 2018 Honda Civic -- check engine light on, or need pre-purchase inspection for a used car I'm looking at..." required></textarea></div>
+          <button type="submit" class="btn-send">Send Message</button>
+        </form>
+      </div>
     </div>
   </div>
-  <div class="cta-right">
-    <h3>Request a Quote</h3>
-    <form action="https://api.web3forms.com/submit" method="POST">
-      <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-      <div class="form-group"><input type="text" name="name" placeholder="Full Name" required></div>
-      <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number"></div>
-      <div class="form-group"><input type="email" name="email" placeholder="Email" required></div>
-      <div class="form-group">
-        <select name="service">
-          <option value="" disabled selected>Service Needed</option>
-          <option>Engine Diagnostics</option>
-          <option>Electrical &amp; Wiring</option>
-          <option>Airbag &amp; Check Engine</option>
-          <option>Brake Service</option>
-          <option>General Maintenance</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="form-group"><textarea name="message" placeholder="e.g., 2018 Honda Civic -- check engine light on, or need pre-purchase inspection for a used car I'm looking at..." required></textarea></div>
-      <button type="submit" class="btn-send">Send Message</button>
-    </form>
-  </div>
-</div>
-</div>
 </section>
-</div>
+
+</div><!-- end flex wrapper -->
 
 <!-- FOOTER -->
 <footer>
@@ -580,16 +715,7 @@
         <div class="logo-text">ACS Auto Repair</div>
         <p>Family-owned and operated for over 25 years. We treat every car like it belongs to someone we know — because it usually does.</p>
       </div>
-      <div class="footer-col">
-        <!-- <h4>Our Services</h4>
-        <ul>
-          <li><a href="#services">Engine Diagnostics</a></li>
-          <li><a href="#services">Electrical &amp; Wiring</a></li>
-          <li><a href="#services">Airbag &amp; Check Engine</a></li>
-          <li><a href="#services">Brake Service</a></li>
-          <li><a href="#services">General Maintenance</a></li>
-        </ul>-->
-      </div>
+      <div class="footer-col"></div>
       <div class="footer-col">
         <h4>Site Map</h4>
         <ul>
@@ -598,7 +724,6 @@
           <li><a href="#reviews">Testimonials</a></li>
           <li><a href="#about">About Us</a></li>
           <li><a href="#contact">Contact</a></li>
-          <!--<li><a href="store.html">Store</a></li>-->
         </ul>
       </div>
       <div class="footer-col">
@@ -624,6 +749,34 @@
     </div>
   </div>
 </footer>
+
+<!-- STICKY MOBILE CALL BAR -->
+<div class="mobile-call-bar">
+  <a href="tel:8472623335">
+    Call Us: (847) 262-3335
+  </a>
+</div>
+
+<script>
+  function toggleMenu() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('mobileOverlay').classList.toggle('open');
+  document.body.style.overflow = document.getElementById('mobileMenu').classList.contains('open') ? 'hidden' : '';
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+  // Close menu on outside click
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const btn = document.querySelector('.nav-hamburger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
 
 </body>
 </html>
