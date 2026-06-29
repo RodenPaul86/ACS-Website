@@ -1,1 +1,0 @@
-const CONFIG = { web3formsKey: "YOUR_ACCESS_KEY_HERE" };
