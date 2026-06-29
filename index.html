@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ACS Auto Repair</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
 <style>
   :root {
     --black: #0d0d0d;
@@ -294,20 +295,75 @@
   .acs-guarantee { margin-top: auto; padding-top: 2rem; }
   .acs-guarantee p { font-size: 0.95rem; font-style: italic; color: #f5a623; font-weight: 600; line-height: 1.6; margin: 0; }
   .form-group { margin-bottom: 16px; }
-  .form-group input, .form-group textarea, .form-group select {
-    width: 100%; background: #1e1e1e; border: 1px solid var(--border);
-    color: var(--white); font-family: 'Barlow', sans-serif;
-    font-size: 14px; outline: none; transition: border-color .2s;
-    padding: 12px 16px; box-sizing: border-box;
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; background: #1e1e1e; border: 1px solid var(--border);
+  color: var(--white); font-family: 'Barlow', sans-serif;
+  font-size: 14px; outline: none; transition: border-color .2s;
+  padding: 12px 16px; box-sizing: border-box;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
+.form-group textarea { height: 100px; resize: vertical; color-scheme: dark; }
+.form-group select {
+  appearance: none; -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 16px center;
+}
+.form-group select option { background: #1e1e1e; }
+
+/* Italic placeholders, non-italic typed text */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  font-style: italic;
+  color: #888;
+}
+.form-group input,
+.form-group textarea {
+  font-style: normal;
+}
+
+/* Input wrapper + clear button */
+.input-wrapper {
+  position: relative;
+}
+.input-wrapper input,
+.input-wrapper textarea {
+  padding-right: 42px;
+}
+.clear-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-size: 16px;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;
+  display: none;
+  transition: background .2s ease;
+  padding: 0;
+}
+.clear-btn:hover { background: rgba(255,255,255,.3); }
+
+/* Align clear button to top-right for textarea */
+.input-wrapper textarea ~ .clear-btn {
+  top: 12px;
+  transform: none;
+}
+  
+  /* Position for textarea */
+  .clear-textarea {
+    top: 18px;
+    transform: none;
   }
-  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--gold); }
-  .form-group textarea { height: 100px; resize: vertical; color-scheme: dark; }
-  .form-group select {
-    appearance: none; -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 16px center;
+  .input-wrapper.has-text .clear-btn {
+    display: block;
   }
-  .form-group select option { background: #1e1e1e; }
   .btn-send {
     width: 100%; background: var(--gold); color: var(--black);
     font-weight: 700; font-size: 15px; letter-spacing: 1px; text-transform: uppercase;
@@ -681,10 +737,25 @@
       <div class="cta-right">
         <h3>Request a Quote</h3>
         <form action="https://api.web3forms.com/submit" method="POST">
-          <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-          <div class="form-group"><input type="text" name="name" placeholder="Full Name" required></div>
-          <div class="form-group"><input type="tel" name="phone" placeholder="Phone Number"></div>
-          <div class="form-group"><input type="email" name="email" placeholder="Email" required></div>
+          <input type="hidden" name="access_key" id="access_key_input">
+          <div class="form-group">
+            <div class="input-wrapper">
+              <input type="text" name="name" placeholder="Full Name*" required>
+              <button type="button" class="clear-btn" aria-label="Clear">×</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-wrapper">
+              <input type="tel" name="phone" placeholder="Phone Number*" required>
+              <button type="button" class="clear-btn" aria-label="Clear">×</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="input-wrapper">
+              <input type="email" name="email" placeholder="Email*" required>
+              <button type="button" class="clear-btn" aria-label="Clear">×</button>
+            </div>
+          </div>
           <div class="form-group">
             <select name="service">
               <option value="" disabled selected>Service Needed</option>
@@ -696,9 +767,14 @@
               <option>Other</option>
             </select>
           </div>
-          <div class="form-group"><textarea name="message" placeholder="e.g., 2018 Honda Civic -- check engine light on, or need pre-purchase inspection for a used car I'm looking at..." required></textarea></div>
+          <div class="form-group">
+            <div class="input-wrapper">
+              <textarea name="message" placeholder="e.g., 2018 Honda Civic -- check engine light on, or need pre-purchase inspection for a used car I'm looking at..." required></textarea>
+            </div>
+          </div>
           <button type="submit" class="btn-send">Send Message</button>
         </form>
+        <script>document.getElementById('access_key_input').value = CONFIG.web3formsKey;</script>
       </div>
     </div>
   </div>
@@ -775,5 +851,21 @@ function closeMenu() {
   });
 </script>
 
+<script>
+document.querySelectorAll(".input-wrapper").forEach(wrapper => {
+  const field = wrapper.querySelector("input, textarea");
+  const clear = wrapper.querySelector(".clear-btn");
+  function toggleButton() {
+    wrapper.classList.toggle("has-text", field.value.trim() !== "");
+  }
+  field.addEventListener("input", toggleButton);
+  clear.addEventListener("click", () => {
+    field.value = "";
+    field.focus();
+    toggleButton();
+  });
+  toggleButton();
+  });
+  </script>
 </body>
 </html>
